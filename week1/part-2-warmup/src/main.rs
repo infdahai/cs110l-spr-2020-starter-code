@@ -7,15 +7,40 @@ fn main() {
 }
 
 fn add_n(v: Vec<i32>, n: i32) -> Vec<i32> {
-    unimplemented!()
+    // let mut res = v.clone();
+    // res.iter_mut().map(|x| *x + n).collect::<Vec<i32>>()
+    let mut result = Vec::new();
+    for i in v.iter() {
+        result.push(i + n)
+    }
+    result
 }
 
 fn add_n_inplace(v: &mut Vec<i32>, n: i32) {
-    unimplemented!()
+    // for i in v {
+    //     *i = *i + n;
+    // }
+    let mut i = 0;
+    while i < v.len() {
+        v[i] += n;
+        i += 1;
+    }
 }
 
 fn dedup(v: &mut Vec<i32>) {
-    unimplemented!()
+    let mut s = HashSet::new();
+    let mut dup_elem = Vec::new();
+    for (key, val) in v.iter_mut().enumerate() {
+        if !s.contains(val) {
+            s.insert(*val);
+            continue;
+        }
+        dup_elem.push(key);
+    }
+    dup_elem.reverse();
+    for x in dup_elem {
+        v.swap_remove(x);
+    }
 }
 
 #[cfg(test)]
