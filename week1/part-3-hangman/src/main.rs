@@ -36,5 +36,56 @@ fn main() {
     // Uncomment for debugging:
     // println!("random word: {}", secret_word);
 
-    // Your code here! :)
+    let guess_cnt = secret_word_chars.len();
+    let mut guess_word: Vec<char> = vec!['-'; guess_cnt];
+    let mut try_guess_cnt = NUM_INCORRECT_GUESSES;
+    let mut guess_alpha: Vec<char> = Vec::new();
+
+    println!("Welcome to CS110L Hangman!");
+    while try_guess_cnt > 0 {
+        println!(
+            "The word so far is {}",
+            guess_word.iter().collect::<String>().clone()
+        );
+        println!(
+            "You have guessed the following letters: {}",
+            guess_alpha.iter().collect::<String>().clone()
+        );
+        println!("You have {} guesses left", try_guess_cnt);
+        print!("Please guess a letter: ");
+        io::stdout().flush().expect("Error flushing stdout.");
+        let mut guess = String::new();
+        io::stdin()
+            .read_line(&mut guess)
+            .expect("Error reading line.");
+        let guess_vec: Vec<char> = guess.chars().collect();
+        // println!("{}", guess_vec[0]);
+
+        guess_alpha.push(guess_vec[0]);
+        if secret_word_chars.contains(&guess_vec[0]) {
+            // for i in 0..guess_cnt {
+            //     if secret_word_chars[i] == guess_vec[0] {
+            //         guess_word[i] = guess_vec[0];
+            //         break;
+            //     }
+            // }
+            let ind = secret_word_chars
+                .iter()
+                .position(|&x| x == guess_vec[0])
+                .unwrap();
+            guess_word[ind] = guess_vec[0];
+            println!("");
+        } else {
+            try_guess_cnt -= 1;
+            println!("Sorry, that letter is not in the word\n");
+        }
+    }
+
+    match try_guess_cnt {
+        0 => println!("Sorry, you ran out of guesses!"),
+        _ => println!(
+            "Congratulations you guessed the secret word: {}!",
+            secret_word
+        ),
+    }
 }
