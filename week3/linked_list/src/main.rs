@@ -1,4 +1,6 @@
 use linked_list::LinkedList;
+
+use crate::linked_list::ComputeNorm;
 pub mod linked_list;
 
 fn main() {
@@ -13,10 +15,14 @@ fn main() {
     println!("top element: {}", list.pop_front().unwrap());
     println!("{}", list);
     println!("size: {}", list.get_size());
-    println!("{}", list.to_string()); // ToString impl for anything impl Display
+    println!("{}", list); // ToString impl for anything impl Display
 
-    // If you implement iterator trait:
-    //for val in &list {
-    //    println!("{}", val);
-    //}
+    for val in &list {
+        println!("{}", val);
+    }
+
+    let mut list2 = LinkedList::<f64>::new();
+    list2.push_front(3.1);
+    list2.push_front(2.1);
+    println!("compute norm value is {}", list2.compute_norm());
 }
