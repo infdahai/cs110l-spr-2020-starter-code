@@ -71,12 +71,21 @@ fn main() {
     println!("Farm starting on {} CPUs", num_threads);
     let start = Instant::now();
 
-    // TODO: call get_input_numbers() and store a queue of numbers to factor
+    let nums = Arc::new(Mutex::new(get_input_numbers()));
 
-    // TODO: spawn `num_threads` threads, each of which pops numbers off the queue and calls
-    // factor_number() until the queue is empty
+    let mut thread = Vec::new();
+    for _ in 0..num_threads {
+        let numbers = nums.clone();
+        thread.push(thread::spawn(move || {
+            while let Some(num) = numbers.lock().unwrap().pop_front() {
+                factor_number(num);
+            }
+        }));
+    }
 
-    // TODO: join all the threads you created
+    for t in thread {
+        t.join().unwrap();
+    }
 
     println!("Total execution time: {:?}", start.elapsed());
 }
