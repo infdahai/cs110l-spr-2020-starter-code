@@ -156,10 +156,7 @@ pub struct Type {
 
 impl Type {
     pub fn new(name: String, size: usize) -> Self {
-        Type {
-            name: name,
-            size: size,
-        }
+        Type { name, size }
     }
 }
 
@@ -222,5 +219,3 @@ impl fmt::Display for Line {
         write!(f, "{}:{}", self.file, self.number)
     }
 }
-
-

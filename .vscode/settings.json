@@ -1,0 +1,6 @@
+{
+  "makefile.extensionOutputFolder": "./.vscode",
+  "rust-analyzer.linkedProjects": [
+    "proj-1/deet/Cargo.toml"
+  ]
+}
