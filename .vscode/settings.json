@@ -1,6 +1,6 @@
 {
   "makefile.extensionOutputFolder": "./.vscode",
   "rust-analyzer.linkedProjects": [
-    "week5/farm/Cargo.toml"
+    "week6/parallel_map/Cargo.toml"
   ]
 }
